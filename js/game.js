@@ -19,6 +19,7 @@ Game.prototype.start = function() {
     if (this.framesCounter % 50 === 0) {
   
     }
+    
     this.draw();
     this.moveAll();
 
@@ -44,6 +45,7 @@ Game.prototype.draw = function() {
 
   this.background.draw();
   this.player.draw();
+  
  
 };
 

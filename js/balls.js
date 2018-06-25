@@ -1,8 +1,8 @@
-function Bullet(game, x, y) {
+function Balls(game, x, y) {
   this.game = game;
 
-  this.x = x;
-  this.y = y;
+  this.x = x ;
+  this.y = y ;
 
   this.r = 5;
 
@@ -12,15 +12,15 @@ function Bullet(game, x, y) {
   this.a = 0.25;
 }
 
-Bullet.prototype.draw = function() {
+Balls.prototype.draw = function() {
   this.game.ctx.beginPath();
-  this.game.ctx.fillStyle = "red";
+  this.game.ctx.fillStyle = "green";
   this.game.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
   this.game.ctx.fill();
   this.game.ctx.closePath();
-}
+} 
 
-Bullet.prototype.move = function() {
+Balls.prototype.move = function() {
   this.x += this.vx;
 
   this.vy += this.a;

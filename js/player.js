@@ -43,6 +43,14 @@ Player.prototype.draw = function() {
 	);
 	//balls
 	
+	this.balls = this.balls.filter(function(ball){
+		return this.balls.x < this.game.canvas.width;
+	}.bind (this));
+
+	this.balls.forEach(function(ball) {
+		ball.move();		
+		ball.draw();
+	});
 };
 
 Player.prototype.forward = function() {
@@ -84,12 +92,18 @@ Player.prototype.setListeners = function() {
 				that.jump();
 				break;
 			case 32:
-				//that.shootBall();
+			console.log("hola")
+				that.shootBall();
 				break;
 		}
 	};
+
 };
 
+Player.prototype.shootBall= function(){
 
-
+	var ball =new Balls (this.game ,this.x + this.w, this.y + this.h/2);
+	this.balls.push(ball); //metemos los balones en el array
+	console.log(this.balls)
+}
 
