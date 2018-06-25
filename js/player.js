@@ -14,7 +14,7 @@ function Player(game) {
 	this.img.frameIndex = 0;
 
 	this.w = 50;
-	this.h = 70;
+	this.h = 75;
 
 	this.maxSpeed = 2;
 	this.vel = 16;
@@ -44,12 +44,12 @@ Player.prototype.draw = function() {
 	//balls
 	
 	this.balls = this.balls.filter(function(ball){
-		return this.balls.x < this.game.canvas.width;
+		return ball.x < this.game.canvas.width;
 	}.bind (this));
 
 	this.balls.forEach(function(ball) {
-		ball.move();		
 		ball.draw();
+		ball.move();		
 	});
 };
 
@@ -61,9 +61,11 @@ Player.prototype.back = function() {
 };
 Player.prototype.jump = function() {
 	//this.y -= this.maxSpeed * this.vy ;
-	this.y -= 5;
-	this.vy -= 15;
-	this.x += 10; //evitar que se vaya al infinito
+	
+		this.y -= 5;
+		this.vy -= 15;
+		this.x += 10; //evitar que se vaya al infinito
+
 };
 
 Player.prototype.move = function() {
@@ -96,14 +98,14 @@ Player.prototype.setListeners = function() {
 				that.shootBall();
 				break;
 		}
-	};
+	}.bind(this);
 
 };
 
 Player.prototype.shootBall= function(){
 
-	var ball =new Balls (this.game ,this.x + this.w, this.y + this.h/2);
+	var ball = new Balls (this.game ,this.x + this.w, this.y + this.h/2);
+	
 	this.balls.push(ball); //metemos los balones en el array
-	console.log(this.balls)
+	console.log("push pelota")
 }
-
