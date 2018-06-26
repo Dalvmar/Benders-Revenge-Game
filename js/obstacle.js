@@ -6,10 +6,12 @@ function Obstacle(game) {
   this.w = 15;
   this.h = this.w * 3;
 
-  this.dx = 0.5;
+  this.dy = 0.5;
+  this.obstacle= new Image();
+  this.obstacle.src= 'img/micro.png'
 
-  this.x = this.game.canvas.width;
-  this.y = -this.game.player.y0 + this.game.player.h - this.h - 5;
+  this.x = this.game.canvas.h;
+  this.y = this.game.player.dy -this.game.player.h - this.h - 5;
 }
 
 Obstacle.prototype.draw = function() {

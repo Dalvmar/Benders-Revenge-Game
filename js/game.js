@@ -19,17 +19,23 @@ Game.prototype.start = function() {
     if (this.framesCounter % 250 === 0) {
     this.generateEnemies();
     }
+
+   /* if (this.framesCounter % 50 === 0) {
+      this.generateObstacles();
+      }*/
     
     this.draw();
     this.moveAll();
-    //this.clearEnemies();
+    this.clearEnemies();
+    //this.clearObsacles();
+
     if (this.isCollisionEnemy()) {
      this.gameOver();
     }
     // if (this.isCollisionBall()){
     //   //puntos ++
     //   console.log('iscollision')
-    //   //eliminoe enemigo
+    //   //elimino el enemigo
     //   this.clearEnemies();
     // } else {console.log('aqui si')}
    
@@ -43,11 +49,11 @@ Game.prototype.stop = function() {
 
 Game.prototype.gameOver = function() {
   this.stop();
- /* 
+ 
   if(confirm("GAME OVER. Play again?")) {
     this.reset();
     this.start();
-}*/
+}
 };
 
 Game.prototype.clear = function() {
@@ -59,6 +65,7 @@ Game.prototype.reset = function() {
   this.player = new Player(this);
   this.enemies = [];
   this.framesCounter = 0;
+  this.obstacles =[];
  
 };
 
@@ -69,8 +76,14 @@ Game.prototype.draw = function() {
 
   this.enemies.forEach(function(enemies) { 
     enemies.draw(); 
-    
+  
   });
+
+ /* this.obstacles.forEach(function(obstacles) { 
+    obstacles.draw(); 
+  
+  });*/
+
 };
 
 Game.prototype.moveAll = function() {
@@ -82,6 +95,10 @@ Game.prototype.moveAll = function() {
     if(that.isCollisionBall()) that.clearEnemies();
     enemy.move(); 
   });
+
+  /*this.obstacles.forEach(function(obstacles) { 
+    obstacle.move(); 
+  });*/
   
 };
 
@@ -93,10 +110,20 @@ Game.prototype.clearEnemies = function() {
   });
 };
 
+/*Game.prototype.clearObstacles = function() {
+  this.obstacles = this.obstacles.filter(function(obstacle) {
+    return obstacle.y >= 0;
+  });
+};*/
+
 Game.prototype.generateEnemies = function() {
   this.enemies.push(new Enemy(this));
 };
 
+/*Game.prototype.generateObstacles = function() {
+  this.obstacles.push(new Obstacle(this));
+};
+*/
 Game.prototype.isCollisionEnemy = function() {
   return this.enemies.some(function(enemy) {
     return (
