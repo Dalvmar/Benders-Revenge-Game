@@ -1,13 +1,15 @@
-/*function Obstacle(game) {
+//Obstaculos vertical
+
+function Obstacle(game) {
   this.game = game;
 
   this.w = 15;
   this.h = this.w * 3;
 
-  this.dx = 10;
+  this.dx = 0.5;
 
   this.x = this.game.canvas.width;
-  this.y = this.game.player.y0 + this.game.player.h - this.h - 5;
+  this.y = -this.game.player.y0 + this.game.player.h - this.h - 5;
 }
 
 Obstacle.prototype.draw = function() {
@@ -16,5 +18,5 @@ Obstacle.prototype.draw = function() {
 };
 
 Obstacle.prototype.move = function() {
-  this.x -= this.dx;
-};*/
+  this.y += this.dy;
+};

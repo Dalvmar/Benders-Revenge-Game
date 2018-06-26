@@ -18,7 +18,7 @@ function Player(game) {
 
 	this.maxSpeed = 2;
 	this.vel = 16;
-	this.grav= 0.08;//gravedad
+	this.grav= 0.08; //gravedad
 
 	this.vy = 2; //velocidad eje y
 
@@ -54,18 +54,20 @@ Player.prototype.draw = function() {
 };
 
 Player.prototype.forward = function() {
-  this.x -=this.maxSpeed * this.vel;
+
+	this.x -=this.maxSpeed * this.vel;
+
 };
 Player.prototype.back = function() {
 	this.x += this.maxSpeed * this.vel;
 };
 Player.prototype.jump = function() {
 	//this.y -= this.maxSpeed * this.vy ;
-	
+	if (this.y==this.y0) {
 		this.y -= 5;
 		this.vy -= 15;
 		this.x += 10; //evitar que se vaya al infinito
-
+	}
 };
 
 Player.prototype.move = function() {
@@ -94,7 +96,7 @@ Player.prototype.setListeners = function() {
 				that.jump();
 				break;
 			case 32:
-			console.log("hola")
+			
 				that.shootBall();
 				break;
 		}
@@ -107,5 +109,5 @@ Player.prototype.shootBall= function(){
 	var ball = new Balls (this.game ,this.x + this.w, this.y + this.h/2);
 	
 	this.balls.push(ball); //metemos los balones en el array
-	console.log("push pelota")
+	
 }
