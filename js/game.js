@@ -13,24 +13,30 @@ Game.prototype.start = function() {
 
 
     this.framesCounter++;
+    //this.genObsVert-=0.1;
+    //this.genEnemies-=0.2;
 
     if (this.framesCounter > 1000) 
       this.framesCounter = 0;
     
 
-    if (this.framesCounter % 50 === 0) 
+    if (this.framesCounter % this.genEnemies === 0) {
       this.generateEnemies();
     
+    }
+      
+    
 
-   if (this.framesCounter % 30 === 0) 
+   if (this.framesCounter % this.genObsVert  === 0) {
       this.generateVerticalObs(Math.floor(Math.random() * this.canvas.width));
+      
+    }
       
    
     this.draw();
-    
     this.moveAll();
     this.clearEnemies();
-    //this.clearVerticalObs();
+   
 
 
     if (this.isCollisionEnemy()) {
@@ -68,10 +74,7 @@ Game.prototype.stop = function() {
 Game.prototype.gameOver = function() {
   this.stop();
  
-  /*if(confirm("GAME OVER. Play again?")) {
-    this.reset();
-    this.start();
-}*/
+
 
 alert("YOU LOSE!");
 document.location.reload();
@@ -86,6 +89,8 @@ Game.prototype.reset = function() {
   this.player = new Player(this);
   this.enemies = [];
   this.framesCounter = 0;
+  this.genEnemies = 50;
+  this.genObsVert = 30;
   this.verticalObs =[];
   this.score = 0;
  

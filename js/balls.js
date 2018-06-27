@@ -10,8 +10,8 @@ function Balls(game, x, y) {
   this.vy = 1;
 
   this.a = 0.25;
-  this.ballImg=new Image()
-  this.ballImg.src = 'img/ball.png';
+ // this.ballImg=new Image()
+ // this.ballImg.src = 'img/ball.png';
 }
 
 Balls.prototype.draw = function() {
@@ -20,8 +20,13 @@ Balls.prototype.draw = function() {
   this.game.ctx.fillStyle = "green";
   this.game.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
   this.game.ctx.fill();
-  this.game.ctx.closePath();
-
+  this.game.ctx.closePath();/*
+	this.game.ctx.drawImage(
+		this.ballImg,
+		this.x,
+		this.y,
+	    
+	);*/
   
 } 
 
