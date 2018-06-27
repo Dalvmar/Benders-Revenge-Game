@@ -21,10 +21,6 @@ function VerticalObs(game, x){
 VerticalObs.prototype.draw = function() {
   this.game.ctx.drawImage(
 		this.verticalObs,
-		this.verticalObs.frameIndex * Math.floor(this.verticalObs.height / this.verticalObs.frames),
-		0,
-		Math.floor(this.verticalObs.height / this.verticalObs.frames),
-		this.verticalObs.height,
 		this.x,
 		this.y,
 		this.width,

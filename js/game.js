@@ -33,7 +33,7 @@ Game.prototype.start = function() {
     if (this.isCollisionEnemy()) {
      this.gameOver();
     }
-
+    this.isCollisionObj();
     
    
   }.bind(this), 1000 / this.fps);
@@ -51,7 +51,12 @@ Game.prototype.start = function() {
 
 Game.prototype.killEnemies=function(pos){
 this.enemies.splice(pos,1);
+
 }
+
+Game.prototype.killVerticalObs=function(pos){
+  this.verticalObs.splice(pos,1);
+  }
 
 Game.prototype.stop = function() {
   clearInterval(this.interval);
@@ -108,7 +113,7 @@ Game.prototype.moveAll = function() {
 
 
   this.verticalObs.forEach(function(verticalOb){
-    console.log("vertical object")
+  
     verticalOb.move()
   });
   
@@ -133,7 +138,7 @@ Game.prototype.generateEnemies = function() {
 
 Game.prototype.generateVerticalObs = function(x) {
   this.verticalObs.push(new VerticalObs(this, x));
-  console.log(this.verticalObs)
+  
 };
 
 
@@ -171,7 +176,8 @@ Game.prototype.isCollisionObj = function() {
       this.verticalObs[i].x + this.verticalObs[i].width > this.player.x &&
       this.verticalObs[i].y < this.player.y + this.player.h &&
       this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
-       
+        this.killVerticalObs(i);
+       console.log('isCollisionObj')
         //--puntos if(puntos==0)
         //gameOver
 

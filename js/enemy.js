@@ -5,8 +5,8 @@ function Enemy(game) {
 
 	this.enemy = new Image();
 	this.enemy.src = 'img/enemy.png';
-	this.enemy.frames = 3;
-	this.enemy.frameIndex = 0;
+	//this.enemy.frames = 3;
+	//this.enemy.frameIndex = 0;
 
 	this.w = 90;
 	this.h = 90;
@@ -24,14 +24,11 @@ function Enemy(game) {
 Enemy.prototype.draw = function() {
 	this.game.ctx.drawImage(
 		this.enemy,
-		this.enemy.frameIndex * Math.floor(this.enemy.width / this.enemy.frames),
-		0,
-		Math.floor(this.enemy.width+40 / this.enemy.frames),
-		this.enemy.height,
 		this.x,
 		this.y,
 		this.w,
 		this.h
+
 
 	);
 
