@@ -2,13 +2,15 @@ function Game(canvadId) {
   this.canvas = document.getElementById(canvadId);
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
-
+  
   this.reset();
 }
 
 Game.prototype.start = function() {
   this.interval = setInterval(function() {
-   this.clear();
+    this.clear();
+ 
+
 
     this.framesCounter++;
 
@@ -20,11 +22,12 @@ Game.prototype.start = function() {
       this.generateEnemies();
     
 
-   if (this.framesCounter % 200 === 0) 
+   if (this.framesCounter % 30 === 0) 
       this.generateVerticalObs(Math.floor(Math.random() * this.canvas.width));
       
-    
+   
     this.draw();
+    
     this.moveAll();
     this.clearEnemies();
     //this.clearVerticalObs();
@@ -40,13 +43,13 @@ Game.prototype.start = function() {
 };
 
 
-/*Game.prototype.drawScore = function(){
-  ctx.font = "24px 'comic sans', cursive";
-  ctx.fillStyle = '#fff';
-  ctx.fillText('Score: '+Math.floor(this.points), 700, 50);
-  ctx.textBaseline = "top";
-};
-*/
+Game.prototype.drawScore = function(){
+    
+  this.ctx.font = "30px sans-serif";
+  this.ctx.fillStyle = "black";
+  this.ctx.fillText("Score:" + Math.floor(this.score), 50, 50);
+}
+
 
 
 Game.prototype.killEnemies=function(pos){
@@ -65,10 +68,13 @@ Game.prototype.stop = function() {
 Game.prototype.gameOver = function() {
   this.stop();
  
-  if(confirm("GAME OVER. Play again?")) {
+  /*if(confirm("GAME OVER. Play again?")) {
     this.reset();
     this.start();
-}
+}*/
+
+alert("YOU LOSE!");
+document.location.reload();
 };
 
 Game.prototype.clear = function() {
@@ -81,6 +87,7 @@ Game.prototype.reset = function() {
   this.enemies = [];
   this.framesCounter = 0;
   this.verticalObs =[];
+  this.score = 0;
  
 };
 
@@ -88,6 +95,7 @@ Game.prototype.draw = function() {
 
   this.background.draw();
   this.player.draw();
+  this.drawScore();
 
   this.enemies.forEach(function(enemies) { 
     enemies.draw(); 
@@ -107,8 +115,11 @@ Game.prototype.moveAll = function() {
   var that = this;
 
   this.enemies.forEach(function(enemy) { 
-    if(!that.isCollisionBall())
-       enemy.move(); 
+    if(!that.isCollisionBall()){
+      enemy.move(); 
+      
+    }
+       
   });
 
 
@@ -160,7 +171,8 @@ Game.prototype.isCollisionBall = function() {
   for (var i = 0; i < this.enemies.length; i++) {
     for (var a = 0; a < this.player.balls.length; a++) {
       if (this.player.balls[a].x < this.enemies[i].x + this.enemies[i].w && this.player.balls[a].x + this.player.balls[a].r  > this.enemies[i].x && this.player.balls[a].y < this.enemies[i].y + this.enemies[i].h && this.player.balls[a].y + this.player.balls[a].r > this.enemies[i].y){
-        this.killEnemies(i);    
+        this.killEnemies(i); 
+        this.score += 1;   
         return true;
       }
       return false;              
@@ -176,8 +188,8 @@ Game.prototype.isCollisionObj = function() {
       this.verticalObs[i].x + this.verticalObs[i].width > this.player.x &&
       this.verticalObs[i].y < this.player.y + this.player.h &&
       this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
-        this.killVerticalObs(i);
-       console.log('isCollisionObj')
+        this.killVerticalObs();
+        this.score -= 0.5;
         //--puntos if(puntos==0)
         //gameOver
 

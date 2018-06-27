@@ -25,6 +25,9 @@ function Player(game) {
 	
 	this.balls = [];
 
+	
+  	this.deadPlayer = false;
+
 	this.setListeners();
 }
 

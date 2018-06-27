@@ -34,25 +34,3 @@ VerticalObs.prototype.move = function() {
 };
 
 
-/*function verticalObs(game) {
-  this.game = game;
-
-  this.w = 15;
-  this.h = this.w * 3;
-
-  this.dy = 0.5;
-  //this.verticalObs= new Image();
-  //this.verticalObs.src= 'img/micro.png'
-
-  this.x = this.game.canvas.w;
-  this.y = this.game.player.dy //-this.game.player.h - this.h - 5;
-}
-
-verticalObs.prototype.draw = function() {
-  this.game.ctx.fillStyle = "black";
-  this.game.ctx.fillRect(this.x, this.y, this.w, this.h);
-};
-
-verticalObs.prototype.move = function() {
-  this.y += this.dy;
-};*/
