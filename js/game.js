@@ -12,38 +12,44 @@ Game.prototype.start = function() {
 
     this.framesCounter++;
 
-    if (this.framesCounter > 1000) {
+    if (this.framesCounter > 1000) 
       this.framesCounter = 0;
-    }
+    
 
-    if (this.framesCounter % 250 === 0) {
-    this.generateEnemies();
-    }
+    if (this.framesCounter % 50 === 0) 
+      this.generateEnemies();
+    
 
-   /* if (this.framesCounter % 50 === 0) {
-      this.generateObstacles();
-      }*/
+   if (this.framesCounter % 200 === 0) 
+      this.generateVerticalObs(Math.floor(Math.random() * this.canvas.width));
+      
     
     this.draw();
     this.moveAll();
     this.clearEnemies();
-    //this.clearObsacles();
+    //this.clearVerticalObs();
+
 
     if (this.isCollisionEnemy()) {
      this.gameOver();
     }
-    // if (this.isCollisionBall()){
-    //   //puntos ++
-    //   console.log('iscollision')
-    //   //elimino el enemigo
-    //   this.clearEnemies();
-    // } else {console.log('aqui si')}
+
+    
    
   }.bind(this), 1000 / this.fps);
 };
 
 
-Game.prototype.killEnemies=function( pos){
+/*Game.prototype.drawScore = function(){
+  ctx.font = "24px 'comic sans', cursive";
+  ctx.fillStyle = '#fff';
+  ctx.fillText('Score: '+Math.floor(this.points), 700, 50);
+  ctx.textBaseline = "top";
+};
+*/
+
+
+Game.prototype.killEnemies=function(pos){
 this.enemies.splice(pos,1);
 }
 
@@ -69,7 +75,7 @@ Game.prototype.reset = function() {
   this.player = new Player(this);
   this.enemies = [];
   this.framesCounter = 0;
-  this.obstacles =[];
+  this.verticalObs =[];
  
 };
 
@@ -80,11 +86,11 @@ Game.prototype.draw = function() {
 
   this.enemies.forEach(function(enemies) { 
     enemies.draw(); 
-  
+    
   });
 
-  this.obstacles.forEach(function(obstacles) { 
-    obstacles.draw(); 
+  this.verticalObs.forEach(function(verticalObs) { 
+    verticalObs.draw(); 
   
   });
 
@@ -94,40 +100,46 @@ Game.prototype.moveAll = function() {
 
   this.player.move();
   var that = this;
+
   this.enemies.forEach(function(enemy) { 
-    console.log(that.isCollisionBall())
     if(!that.isCollisionBall())
        enemy.move(); 
   });
 
-  /*this.obstacles.forEach(function(obstacles) { 
-    obstacle.move(); 
-  });*/
+
+  this.verticalObs.forEach(function(verticalOb){
+    console.log("vertical object")
+    verticalOb.move()
+  });
   
 };
 
 
 Game.prototype.clearEnemies = function() {
   this.enemies = this.enemies.filter(function(enemy) {
-    console.log('clearEnemies')
     return enemy.x >= 0;
   });
 };
 
-/*Game.prototype.clearObstacles = function() {
-  this.obstacles = this.obstacles.filter(function(obstacle) {
-    return obstacle.y >= 0;
+Game.prototype.clearVerticalObs = function() {
+  this.verticalObs = this.verticalObs.filter(function(verticalOb) {
+    return verticalOb.y <= this.canvas.height;
   });
-};*/
+};
 
 Game.prototype.generateEnemies = function() {
   this.enemies.push(new Enemy(this));
 };
 
-/*Game.prototype.generateObstacles = function() {
-  this.obstacles.push(new Obstacle(this));
+Game.prototype.generateVerticalObs = function(x) {
+  this.verticalObs.push(new VerticalObs(this, x));
+  console.log(this.verticalObs)
 };
-*/
+
+
+
+/** Collisions **/
+
 
 Game.prototype.isCollisionEnemy = function() {
   return this.enemies.some(function(enemy) {
@@ -141,9 +153,7 @@ Game.prototype.isCollisionEnemy = function() {
 
 Game.prototype.isCollisionBall = function() {
   for (var i = 0; i < this.enemies.length; i++) {
-    console.log(this.enemies[i])
     for (var a = 0; a < this.player.balls.length; a++) {
-      console.log(this.player.balls[a])
       if (this.player.balls[a].x < this.enemies[i].x + this.enemies[i].w && this.player.balls[a].x + this.player.balls[a].r  > this.enemies[i].x && this.player.balls[a].y < this.enemies[i].y + this.enemies[i].h && this.player.balls[a].y + this.player.balls[a].r > this.enemies[i].y){
         this.killEnemies(i);    
         return true;
@@ -152,4 +162,26 @@ Game.prototype.isCollisionBall = function() {
     }         
   }
 };
+
+Game.prototype.isCollisionObj = function() {
+
+  for (var i = 0; i < this.verticalObs.length; i++) {
+
+    if(this.verticalObs[i].x < this.player.x + this.player.w &&
+      this.verticalObs[i].x + this.verticalObs[i].width > this.player.x &&
+      this.verticalObs[i].y < this.player.y + this.player.h &&
+      this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
+       
+        //--puntos if(puntos==0)
+        //gameOver
+
+
+      }
+    
+             // ¡colision detectada!
+     }
+
+    
+  };
+
 
