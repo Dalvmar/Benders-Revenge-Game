@@ -9,7 +9,7 @@ function VerticalObs(game, x){
 
   
   this.verticalObs= new Image();
-  this.verticalObs.src= 'img/enemy.png'
+  this.verticalObs.src= 'img/Magnet-Transparent.png'
   this.verticalObs.frames = 3;
   this.verticalObs.frameIndex = 0;
 

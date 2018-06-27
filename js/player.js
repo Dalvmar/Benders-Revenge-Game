@@ -9,7 +9,7 @@ function Player(game) {
 	//this.dirY = 1;
 
 	this.img = new Image();
-	this.img.src = 'img/Ghost_Bender.png';
+	this.img.src = 'img/Bender.png';
 	this.img.frames = 3;
 	this.img.frameIndex = 0;
 
