@@ -43,6 +43,10 @@ Game.prototype.start = function() {
 };
 
 
+Game.prototype.killEnemies=function( pos){
+this.enemies.splice(pos,1);
+}
+
 Game.prototype.stop = function() {
   clearInterval(this.interval);
 };
@@ -79,10 +83,10 @@ Game.prototype.draw = function() {
   
   });
 
- /* this.obstacles.forEach(function(obstacles) { 
+  this.obstacles.forEach(function(obstacles) { 
     obstacles.draw(); 
   
-  });*/
+  });
 
 };
 
@@ -92,8 +96,8 @@ Game.prototype.moveAll = function() {
   var that = this;
   this.enemies.forEach(function(enemy) { 
     console.log(that.isCollisionBall())
-    if(that.isCollisionBall()) that.clearEnemies();
-    enemy.move(); 
+    if(!that.isCollisionBall())
+       enemy.move(); 
   });
 
   /*this.obstacles.forEach(function(obstacles) { 
@@ -124,6 +128,7 @@ Game.prototype.generateEnemies = function() {
   this.obstacles.push(new Obstacle(this));
 };
 */
+
 Game.prototype.isCollisionEnemy = function() {
   return this.enemies.some(function(enemy) {
     return (
@@ -140,7 +145,8 @@ Game.prototype.isCollisionBall = function() {
     for (var a = 0; a < this.player.balls.length; a++) {
       console.log(this.player.balls[a])
       if (this.player.balls[a].x < this.enemies[i].x + this.enemies[i].w && this.player.balls[a].x + this.player.balls[a].r  > this.enemies[i].x && this.player.balls[a].y < this.enemies[i].y + this.enemies[i].h && this.player.balls[a].y + this.player.balls[a].r > this.enemies[i].y){
-            return true;
+        this.killEnemies(i);    
+        return true;
       }
       return false;              
     }         

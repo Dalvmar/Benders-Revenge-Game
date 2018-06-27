@@ -7,11 +7,11 @@ function Obstacle(game) {
   this.h = this.w * 3;
 
   this.dy = 0.5;
-  this.obstacle= new Image();
-  this.obstacle.src= 'img/micro.png'
+  //this.obstacle= new Image();
+  //this.obstacle.src= 'img/micro.png'
 
-  this.x = this.game.canvas.h;
-  this.y = this.game.player.dy -this.game.player.h - this.h - 5;
+  this.x = this.game.canvas.w;
+  this.y = this.game.player.dy //-this.game.player.h - this.h - 5;
 }
 
 Obstacle.prototype.draw = function() {
