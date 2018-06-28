@@ -17,12 +17,6 @@ function Balls(game, x, y) {
 }
 
 Balls.prototype.draw = function() {
-
-  /*this.game.ctx.beginPath();
-  this.game.ctx.fillStyle = "green";
-  this.game.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-  this.game.ctx.fill();
-  this.game.ctx.closePath();*/
 	this.game.ctx.drawImage(
 		this.ballImg,
 		this.x,

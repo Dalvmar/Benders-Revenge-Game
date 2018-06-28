@@ -15,8 +15,6 @@ Game.prototype.start = function() {
     this.clear();
  
     this.framesCounter++;
-    //this.genObsVert-=0.1;
-    //this.genEnemies-=0.2;
 
      if (this.framesCounter >= 10000) {
       this.framesCounter = 0;
@@ -47,28 +45,12 @@ Game.prototype.start = function() {
     this.clearVerticalObs();
     this.clearBalls();
     
-   
-
-
     if (this.isCollisionEnemy()) {
      this.gameOver();
     }
    
     this.isCollisionObj();
-   /*if( this.isCollisionObj()){
-     if(this.score-=1 ==0){
-       this.gameOver()
-     }else
-     console.log('resto1')
-     this.score -=1;
-   }
-    /*if(this.isCollisionObj()){
-      if(this.score==0){
-        this.gameOver()
-      }
-  };*/
     
-   
   }.bind(this), 1000 / this.fps);
 };
 

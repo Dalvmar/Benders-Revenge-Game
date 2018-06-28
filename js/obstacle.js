@@ -2,7 +2,6 @@
 
 function VerticalObs(game, x){
   this.game = game;
-  //var random = Math.floor(Math.random()*300);
   this.x = x;
   this.y = 0;
 
