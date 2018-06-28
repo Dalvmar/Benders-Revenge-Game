@@ -13,8 +13,8 @@ function VerticalObs(game, x){
   this.verticalObs.frames = 3;
   this.verticalObs.frameIndex = 0;
 
-  this.width = 70;
-  this.height = 80;
+  this.width = 30;
+  this.height = 40;
   this.dy= 5;
 }
 

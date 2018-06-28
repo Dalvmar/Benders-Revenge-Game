@@ -3,22 +3,27 @@
  
  canvas{
      border: 1px black solid;
-     position: relative;
-   
+     margin: 0px auto;
+     text-align: center;
+     display: block;
+     margin: 0 auto;
+     padding: 0 auto;
+     
  }
 
- .container{
+ main {
      height: 500px;
-     position:relative;
+     position: absolute;;
      width: 850px;
      margin: 80px auto;
+     background: url('/img/board.jpg');
  }
 
  div.container{
- /*  background-image: url('/img/fondo.jpeg');*/  
+
  }
 
- #start-btn{
+ #start-btn {
      background: lightgrey;
      color: black;
      border: none;
@@ -28,6 +33,7 @@
      display: inline-block;
      font-size: 16px;
      margin: 4px 2px;
-     cursor: pointer;
+    
 
  }
+

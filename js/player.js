@@ -20,7 +20,7 @@ function Player(game) {
 	this.vel = 16;
 	this.grav= 0.08;
 
-	this.vy = 2; //velocidad eje y
+	this.vy = 2; 
 
 	
 	this.balls = [];
@@ -61,11 +61,11 @@ Player.prototype.back = function() {
 	this.x += this.maxSpeed * this.vel;
 };
 Player.prototype.jump = function() {
-	//this.y -= this.maxSpeed * this.vy ;
+
 	if (this.y==this.y0) {
 		this.y -= 5;
 		this.vy -= 15;
-		this.x += 10; //evitar que se vaya al infinito
+		this.x += 10; 
 	}
 };
 
@@ -107,6 +107,6 @@ Player.prototype.shootBall= function(){
 
 	var ball = new Balls (this.game ,this.x + this.w, this.y + this.h/2);
 	
-	this.balls.push(ball); //metemos los balones en el array
+	this.balls.push(ball); 
 	
 }

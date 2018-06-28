@@ -12,8 +12,8 @@ function Balls(game, x, y) {
   this.a = 0.25;
   this.ballImg=new Image()
   this.ballImg.src = 'img/ball.png';
-  this.h=40;
-  this.w=30;
+  this.h=25;
+  this.w=10;
 }
 
 Balls.prototype.draw = function() {

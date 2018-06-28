@@ -8,26 +8,43 @@ function Game(canvadId) {
 
 Game.prototype.start = function() {
   this.interval = setInterval(function() {
+
     this.clear();
  
-
-
     this.framesCounter++;
     //this.genObsVert-=0.1;
     //this.genEnemies-=0.2;
 
-    if (this.framesCounter > 1000) 
+    if (this.framesCounter > 1000) {
       this.framesCounter = 0;
+      
+    }
+      console.log(this.framesCounter)
     
 
     if (this.framesCounter % this.genEnemies === 0) {
-      this.generateEnemies();
-    
+      
+      if(this.framesCounter > 500)
+      {
+        this.genEnemies-=0.9;
+        
+      }else {
+        this.genEnemies=50;
+      }
+       
+        this.generateEnemies(); 
     }
       
     
 
    if (this.framesCounter % this.genObsVert  === 0) {
+     
+    if(this.framesCounter > 200)
+        {
+          this.genObsVert -=0.6;
+        }else {
+          this.genObsVert=30;
+        }
       this.generateVerticalObs(Math.floor(Math.random() * this.canvas.width));
       
     }
@@ -42,7 +59,20 @@ Game.prototype.start = function() {
     if (this.isCollisionEnemy()) {
      this.gameOver();
     }
+   
     this.isCollisionObj();
+   /*if( this.isCollisionObj()){
+     if(this.score-=1 ==0){
+       this.gameOver()
+     }else
+     console.log('resto1')
+     this.score -=1;
+   }
+    /*if(this.isCollisionObj()){
+      if(this.score==0){
+        this.gameOver()
+      }
+  };*/
     
    
   }.bind(this), 1000 / this.fps);
@@ -50,21 +80,20 @@ Game.prototype.start = function() {
 
 
 Game.prototype.drawScore = function(){
-    
+  
   this.ctx.font = "30px sans-serif";
   this.ctx.fillStyle = "black";
-  this.ctx.fillText("Score:" + Math.floor(this.score), 50, 50);
+  this.ctx.strokeText("Score:" + Math.floor(this.score), 700, 60);
 }
 
-
-
-Game.prototype.killEnemies=function(pos){
-this.enemies.splice(pos,1);
+Game.prototype.killEnemiesBalls=function(posEnemy,posBall){
+this.enemies.splice(posEnemy,1);
+this.player.balls.splice(posBall,1); 
 
 }
 
-Game.prototype.killVerticalObs=function(pos){
-  this.verticalObs.splice(pos,1);
+Game.prototype.killVerticalObs=function(posObject){
+  this.verticalObs.splice(posObject,1);
   }
 
 Game.prototype.stop = function() {
@@ -77,7 +106,7 @@ Game.prototype.gameOver = function() {
 
 
 alert("YOU LOSE!");
-document.location.reload();
+//document.location.reload();
 };
 
 Game.prototype.clear = function() {
@@ -85,12 +114,13 @@ Game.prototype.clear = function() {
 };
 
 Game.prototype.reset = function() {
+
   this.background = new Background(this);
   this.player = new Player(this);
   this.enemies = [];
   this.framesCounter = 0;
-  this.genEnemies = 50;
-  this.genObsVert = 30;
+  this.genEnemies = 90;
+  this.genObsVert = 50;
   this.verticalObs =[];
   this.score = 0;
  
@@ -126,8 +156,6 @@ Game.prototype.moveAll = function() {
     }
        
   });
-
-
   this.verticalObs.forEach(function(verticalOb){
   
     verticalOb.move()
@@ -176,8 +204,9 @@ Game.prototype.isCollisionBall = function() {
   for (var i = 0; i < this.enemies.length; i++) {
     for (var a = 0; a < this.player.balls.length; a++) {
       if (this.player.balls[a].x < this.enemies[i].x + this.enemies[i].w && this.player.balls[a].x + this.player.balls[a].r  > this.enemies[i].x && this.player.balls[a].y < this.enemies[i].y + this.enemies[i].h && this.player.balls[a].y + this.player.balls[a].r > this.enemies[i].y){
-        this.killEnemies(i); 
-        this.score += 1;   
+        this.killEnemiesBalls(i,a); 
+        
+        this.score += 3;   
         return true;
       }
       return false;              
@@ -188,19 +217,25 @@ Game.prototype.isCollisionBall = function() {
 Game.prototype.isCollisionObj = function() {
 
   for (var i = 0; i < this.verticalObs.length; i++) {
-
-    if(this.verticalObs[i].x < this.player.x + this.player.w &&
+     if(this.verticalObs[i].x < this.player.x + this.player.w &&
       this.verticalObs[i].x + this.verticalObs[i].width > this.player.x &&
       this.verticalObs[i].y < this.player.y + this.player.h &&
       this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
-        this.killVerticalObs();
-        this.score -= 0.5;
-        //--puntos if(puntos==0)
-        //gameOver
+        this.killVerticalObs(i);
 
-
+        if(this.score == 0)
+        {
+          this.gameOver()
+        }
+        else
+        {
+          console.log("resto")
+          this.score -= 1;
+        }
+         
+        
       }
-    
+      
              // ¡colision detectada!
      }
 
