@@ -92,6 +92,7 @@ Game.prototype.killVerticalObs=function(posObject){
 
 Game.prototype.stop = function() {
   clearInterval(this.interval);
+  
 };
 
 Game.prototype.gameOver = function() {
@@ -101,6 +102,8 @@ Game.prototype.gameOver = function() {
   this.ctx.textAlign="center";
   this.ctx.fillText("GAME OVER!!!!",425,200,300);
   this.stop();
+  this.sounds.backgroundAudio.pause();
+  this.sounds.gameoverAudio.play();
  
 
 };
@@ -222,8 +225,8 @@ Game.prototype.isCollisionObj = function() {
       this.verticalObs[i].y < this.player.y + this.player.h &&
       this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
         this.killVerticalObs(i);
-        this.sounds.gameoverAudio.play();
-        console.log("hola")
+        this.sounds.collisionAudio.play();
+        
 
         if(this.score == 0)
         {
@@ -238,7 +241,7 @@ Game.prototype.isCollisionObj = function() {
         
       }
       
-             // ¡colision detectada!
+    
      }
 
     
