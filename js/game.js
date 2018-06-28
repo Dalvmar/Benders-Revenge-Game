@@ -5,7 +5,9 @@ function Game(canvadId) {
   this.balls = [];
   
   this.reset();
+  this.sounds = new Sounds();
 }
+
 
 Game.prototype.start = function() {
   this.interval = setInterval(function() {
@@ -94,13 +96,13 @@ Game.prototype.stop = function() {
 
 Game.prototype.gameOver = function() {
 
-  this.ctx.font = "30sans-serif";
-  this.ctx.fillStyle = "black";
-  this.ctx.fillText =("GAME OVER!!!!",200,300);
+  this.ctx.font = " 150px sans-serif";
+  this.ctx.fillStyle = "white";
+  this.ctx.textAlign="center";
+  this.ctx.fillText("GAME OVER!!!!",425,200,300);
   this.stop();
  
-//alert("YOU LOSE!");
-//document.location.reload();
+
 };
 
 Game.prototype.clear = function() {
@@ -220,6 +222,8 @@ Game.prototype.isCollisionObj = function() {
       this.verticalObs[i].y < this.player.y + this.player.h &&
       this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
         this.killVerticalObs(i);
+        this.sounds.gameoverAudio.play();
+        console.log("hola")
 
         if(this.score == 0)
         {
@@ -228,7 +232,7 @@ Game.prototype.isCollisionObj = function() {
         else
         {
           
-          this.score -= 1;
+          this.score -= 4;
         }
          
         

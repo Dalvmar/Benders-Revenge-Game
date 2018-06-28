@@ -5,22 +5,20 @@
      border: 1px black solid;
      margin: 0px auto;
      text-align: center;
-     display: block;
+     display: none;
      margin: 0 auto;
      padding: 0 auto;
      
+     
  }
 
- main {
-     height: 500px;
-     position: absolute;;
-     width: 850px;
-     margin: 80px auto;
-     background: url('/img/board.jpg');
- }
 
- div.container{
-
+ .bender-cover{
+    background: url('../img/board.jpg');
+    height: 500px;
+    width: 850px;
+    margin: 80px auto;
+    
  }
 
  #start-btn {
