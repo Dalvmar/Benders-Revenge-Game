@@ -14,7 +14,7 @@ function Game(canvadId) {
  
     this.framesCounter++;
 
-     if (this.framesCounter >= 10000) {
+     if (this.framesCounter >= 1000) {
       this.framesCounter = 0;
     } 
     console.log(this.framesCounter)

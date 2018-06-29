@@ -5,9 +5,6 @@ function Player(game) {
 	this.y0 = this.game.canvas.height * 0.7;
 	this.y = this.y0;
 
-	//this.dirX = 1;
-	//this.dirY = 1;
-
 	this.img = new Image();
 	this.img.src = 'img/Bender.png';
 	this.img.frames = 3;
@@ -38,7 +35,7 @@ Player.prototype.draw = function() {
 		this.w,
 		this.h
 	);
-		
+
 	this.balls = this.balls.filter(function(ball){
 		return ball.x < this.game.canvas.width;
 	}.bind (this));
@@ -74,6 +71,12 @@ Player.prototype.move = function() {
 	} else {
 	  this.vy += grav;
 	  this.y += this.vy;
+	}
+	if(this.x < 0){
+		this.x=0
+	}
+	if(this.x +this.width >canvas.width){
+		this.x = canvas.width-this.width;
 	}
   };
 
