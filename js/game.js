@@ -3,13 +3,11 @@ function Game(canvadId) {
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
   this.balls = [];
-  
   this.reset();
   this.sounds = new Sounds();
 }
 
-
-Game.prototype.start = function() {
+  Game.prototype.start = function() {
   this.interval = setInterval(function() {
 
     this.clear();
@@ -18,11 +16,9 @@ Game.prototype.start = function() {
 
      if (this.framesCounter >= 10000) {
       this.framesCounter = 0;
-      
     } 
     console.log(this.framesCounter)
     
-
     if (this.framesCounter % this.genEnemies === 0) {
       this.generateEnemies(); 
     }
@@ -38,22 +34,17 @@ Game.prototype.start = function() {
       this.genObsVert -=5;
     }
       
-   
     this.draw();
     this.moveAll();
     this.clearEnemies();
     this.clearVerticalObs();
     this.clearBalls();
-    
     if (this.isCollisionEnemy()) {
      this.gameOver();
     }
-   
-    this.isCollisionObj();
-    
+    this.isCollisionObj(); 
   }.bind(this), 1000 / this.fps);
 };
-
 
 Game.prototype.drawScore = function(){
   
@@ -65,7 +56,6 @@ Game.prototype.drawScore = function(){
 Game.prototype.killEnemiesBalls=function(posEnemy,posBall){
 this.enemies.splice(posEnemy,1);
 this.player.balls.splice(posBall,1); 
-
 }
 
 Game.prototype.killVerticalObs=function(posObject){
@@ -74,7 +64,6 @@ Game.prototype.killVerticalObs=function(posObject){
 
 Game.prototype.stop = function() {
   clearInterval(this.interval);
-  
 };
 
 Game.prototype.gameOver = function() {
@@ -86,8 +75,6 @@ Game.prototype.gameOver = function() {
   this.stop();
   this.sounds.backgroundAudio.pause();
   this.sounds.gameoverAudio.play();
- 
-
 };
 
 Game.prototype.clear = function() {
@@ -104,7 +91,6 @@ Game.prototype.reset = function() {
   this.genObsVert = 50;
   this.verticalObs =[];
   this.score = 0;
- 
 };
 
 Game.prototype.draw = function() {
@@ -120,7 +106,6 @@ Game.prototype.draw = function() {
   this.verticalObs.forEach(function(verticalObs) { 
     verticalObs.draw(); 
   });
-
 };
 
 Game.prototype.moveAll = function() {
@@ -137,9 +122,7 @@ Game.prototype.moveAll = function() {
   this.verticalObs.forEach(function(verticalOb){
     verticalOb.move()
   });
-  
 };
-
 
 Game.prototype.clearEnemies = function() {
   this.enemies = this.enemies.filter(function(enemy) {
@@ -151,7 +134,6 @@ Game.prototype.clearVerticalObs = function() {
   this.verticalObs = this.verticalObs.filter(function(verticalOb) {
     return verticalOb.y <= this.canvas.height;
   });
-
 };
 
 Game.prototype.clearBalls = function() {
@@ -161,7 +143,6 @@ Game.prototype.clearBalls = function() {
   
 };
 
-
 Game.prototype.generateEnemies = function() {
   this.enemies.push(new Enemy(this));
 };
@@ -169,11 +150,7 @@ Game.prototype.generateEnemies = function() {
 Game.prototype.generateVerticalObs = function(x) {
   this.verticalObs.push(new VerticalObs(this, x)); 
 };
-
-
-
 /** Collisions **/
-
 
 Game.prototype.isCollisionEnemy = function() {
   return this.enemies.some(function(enemy) {
@@ -208,25 +185,14 @@ Game.prototype.isCollisionObj = function() {
       this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
         this.killVerticalObs(i);
         this.sounds.collisionAudio.play();
-        
-
         if(this.score == 0)
         {
           this.gameOver()
         }
         else
         {
-          
-          this.score -= 4;
+          this.score -= 6;
         }
-         
-        
       }
-      
-    
      }
-
-    
   };
-
-

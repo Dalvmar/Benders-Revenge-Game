@@ -22,10 +22,8 @@ function Player(game) {
 
 	this.vy = 2; 
 
-	
 	this.balls = [];
 
-	
   	this.deadPlayer = false;
 
 	this.setListeners();
@@ -40,8 +38,7 @@ Player.prototype.draw = function() {
 		this.w,
 		this.h
 	);
-	//balls
-	
+		
 	this.balls = this.balls.filter(function(ball){
 		return ball.x < this.game.canvas.width;
 	}.bind (this));
@@ -53,7 +50,6 @@ Player.prototype.draw = function() {
 };
 
 Player.prototype.forward = function() {
-
 	this.x -=this.maxSpeed * this.vel;
 
 };
@@ -95,7 +91,6 @@ Player.prototype.setListeners = function() {
 				that.jump();
 				break;
 			case 32:
-			
 				that.shootBall();
 				break;
 		}
