@@ -5,11 +5,11 @@ function Game(canvadId) {
   this.balls = [];
   this.reset();
   this.sounds = new Sounds();
+  this.started = false;
 }
 
   Game.prototype.start = function() {
   this.interval = setInterval(function() {
-
     this.clear();
  
     this.framesCounter++;
@@ -39,7 +39,7 @@ function Game(canvadId) {
     this.clearEnemies();
     this.clearVerticalObs();
     this.clearBalls();
-    if (this.isCollisionEnemy()) {
+    if (this.isCollisionEnemy() || (this.score <= 0) && this.started) {
      this.gameOver();
     }
     this.isCollisionObj(); 
@@ -167,8 +167,8 @@ Game.prototype.isCollisionBall = function() {
     for (var a = 0; a < this.player.balls.length; a++) {
       if (this.player.balls[a].x < this.enemies[i].x + this.enemies[i].w && this.player.balls[a].x + this.player.balls[a].r  > this.enemies[i].x && this.player.balls[a].y < this.enemies[i].y + this.enemies[i].h && this.player.balls[a].y + this.player.balls[a].r > this.enemies[i].y){
         this.killEnemiesBalls(i,a); 
-        
-        this.score += 3;   
+        this.score += 3;  
+        this.started = true; 
         return true;
       }
       return false;              
@@ -185,14 +185,8 @@ Game.prototype.isCollisionObj = function() {
       this.verticalObs[i].height + this.verticalObs[i].y > this.player.y) {
         this.killVerticalObs(i);
         this.sounds.collisionAudio.play();
-        if(this.score == 0)
-        {
-          this.gameOver()
-        }
-        else
-        {
-          this.score -= 6;
-        }
+        this.score -= 6;
       }
      }
+     if (this.score < 0) this.score = 0;
   };
